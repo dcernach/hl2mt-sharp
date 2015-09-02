@@ -11,21 +11,15 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
     [TestFixture]
     public class PortifolioTest {
-        private string input_folder;
-        private string output_folder;
-        private string pog_folder;
-
         [SetUp]
         public void SetUp() {
-            input_folder = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "test_data");
-            output_folder = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "test_data");
-            pog_folder = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "test_data");
+
         }
 
 
         [Test]
         public void try_open_hl_portifolio() {
-            var path = Path.Combine(input_folder, "Merith-and-Zell.por");
+            var path = Path.Combine(DataDirectory.PORTIFOLIO_FOLDER, "Merith-and-Zell.por");
             var port = new Portifolio();
             port.Load(path);
 
