@@ -15,6 +15,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
             FilePath = Path.GetDirectoryName(path);
             FileName = Path.GetFileName(path);
             FileExtension = Path.GetExtension(path);
+            FullPath = path;
 
             switch (FileExtension) {
                 case ".por":
@@ -27,7 +28,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
                     FileType = FileEntryType.Image;
                     break;
                 default:
-                    FileType = FileEntryType.Other;
+                    FileType = FileEntryType.All;
                     break;
             }
         }
@@ -36,5 +37,6 @@ namespace MeHZ.HeroLab2MapTool.Core {
         public string FileName          { get; internal set; }
         public string FileExtension     { get; internal set; }
         public FileEntryType FileType   { get; internal set; }
+        public string FullPath          { get; internal set; }
     }
 }

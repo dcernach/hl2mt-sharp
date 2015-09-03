@@ -48,8 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="DataDirectory.cs" />
     <Compile Include="DirectoryWalkerTest.cs" />
+    <Compile Include="PortifolioLoaderTest.cs" />
     <Compile Include="PortifolioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

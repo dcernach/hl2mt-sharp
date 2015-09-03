@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 using System.Xml;
 
 namespace MeHZ.HeroLab2MapTool.Core {
-    public class Portifolio {
+    public class PortifolioParser {
 
 
         /// <summary>
@@ -33,18 +33,21 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
             foreach (var item in charElms) {
                 var heroStatBlocks = item.Elements("statblocks").Elements("statblock");
+
                 var zipEntries = heroStatBlocks.Select(e => new {
-                    Format = e.Attribute("format").Value,
-                    Entry = string.Format("{0}/{1}", e.Attribute("folder").Value, e.Attribute("filename").Value)
+                    Format  = e.Attribute("format").Value,
+                    Entry   = string.Format("{0}/{1}", e.Attribute("folder").Value, e.Attribute("filename").Value)
                 }).ToDictionary(t => t.Format, t => t.Entry);
 
 
                 // Load required character information
-                var heroStats = new PortifolioEntry();
-                heroStats.Name = item.Attribute("name").Value;
-                heroStats.Summary = item.Attribute("summary").Value;
+                var heroStats           = new PortifolioEntry();
+                heroStats.Name          = item.Attribute("name").Value;
+                heroStats.Summary       = item.Attribute("summary").Value;
+                heroStats.FilePath      = path;
                 heroStats.TextStatblock = zipArchive.GetEntryAsString(zipEntries["text"]);
                 heroStats.HtmlStatblock = zipArchive.GetEntryAsString(zipEntries["html"]);
+
                 var xmlStatBlock = XElement.Load(zipArchive.GetEntryAsStream(zipEntries["xml"]));
                 var currHero = xmlStatBlock.Descendants("character")
                     .Where(d => d.Attribute("name").Value == heroStats.Name).FirstOrDefault();
@@ -62,16 +65,18 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
                 foreach (var minion in minions) {
                     var minionStatBlocks = minion.Elements("statblocks").Elements("statblock");
+
                     zipEntries = minionStatBlocks.Select(e => new {
-                        Format = e.Attribute("format").Value,
-                        Entry = string.Format("{0}/{1}", e.Attribute("folder").Value, e.Attribute("filename").Value)
+                        Format  = e.Attribute("format").Value,
+                        Entry   = string.Format("{0}/{1}", e.Attribute("folder").Value, e.Attribute("filename").Value)
                     }).ToDictionary(t => t.Format, t => t.Entry);
 
                     var minionStats = new PortifolioEntry();
-                    minionStats.Name = minion.Attribute("name").Value;
-                    minionStats.Summary = minion.Attribute("summary").Value;
-                    minionStats.Owner = heroStats;
-                    minionStats.IsMinion = true;
+                    minionStats.Name          = minion.Attribute("name").Value;
+                    minionStats.Summary       = minion.Attribute("summary").Value;
+                    minionStats.FilePath      = path;
+                    minionStats.Owner         = heroStats;
+                    minionStats.IsMinion      = true;
                     minionStats.TextStatblock = zipArchive.GetEntryAsString(zipEntries["text"]);
                     minionStats.HtmlStatblock = zipArchive.GetEntryAsString(zipEntries["html"]);
 
@@ -87,14 +92,14 @@ namespace MeHZ.HeroLab2MapTool.Core {
             fileStream.Dispose();
             zipArchive.Dispose();
 
-            PortifolioEntries = portEntries;
+            Entries = portEntries;
         }
 
 
         /// <summary>
         /// Returns an IEnumerable containing all characters found in HerolLab portifolio.
         /// </summary>
-        public IEnumerable<PortifolioEntry> PortifolioEntries {
+        public IEnumerable<PortifolioEntry> Entries {
             get;
             private set;
         }

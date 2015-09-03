@@ -48,10 +48,12 @@
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ZipArchiveExtensions.cs" />
     <Compile Include="DirectoryWalker.cs" />
-    <Compile Include="FileEntryMetadata.cs" />
+    <Compile Include="DirectoryWalkerFile.cs" />
     <Compile Include="FileEntryType.cs" />
     <Compile Include="Models\PortifolioEntry.cs" />
-    <Compile Include="Portifolio.cs" />
+    <Compile Include="PortifolioMetadata.cs" />
+    <Compile Include="PortifolioParser.cs" />
+    <Compile Include="PortifolioLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileEntryEventArgs.cs" />
   </ItemGroup>

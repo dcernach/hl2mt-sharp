@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MeHZ.HeroLab2MapTool.Core {
 
-    public class FileEntryMetadata {
+    public class DirectoryWalkerFile {
+        public string        FullPath       { get; set; }
         public string        Directory      { get; set; }
         public string        FileName       { get; set; }
         public string        Extension      { get; set; }
