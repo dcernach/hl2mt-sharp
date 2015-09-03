@@ -16,7 +16,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
         /// <summary>
         /// Keeps a reference to valid file extesions to be processed.
         /// </summary>
-        private readonly string[] validExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".por" };
+        private string[] validExtensions;
 
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
         /// <summary>
         /// Keeps a reference to all valid files found.
         /// </summary>
-        private IList<FileEntryMetadata> m_files;
+        private IList<DirectoryWalkerFile> m_files;
 
 
         /// <summary>
@@ -41,20 +41,37 @@ namespace MeHZ.HeroLab2MapTool.Core {
         /// Creates a new instance of DirectoryWalker class qualified with full directory path.
         /// </summary>
         /// <param name="source">The full qualified path of directory to be walked.</param>
-        public DirectoryWalker(string source) {
+        public DirectoryWalker(string source): this(source, FileEntryType.All) {
             if (string.IsNullOrWhiteSpace(source)) {
                 throw new ArgumentNullException("source");
             }
+        }
+
+
+        public DirectoryWalker(string source, FileEntryType mode) {
+            switch (mode) {
+                case FileEntryType.Portifolio:
+                    validExtensions = new[] { ".por", ".stock" };
+                    break;
+                case FileEntryType.Portrait:
+                case FileEntryType.Image:
+                case FileEntryType.Pog:
+                    validExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                    break;
+                default:
+                    validExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".por", ".stock" };
+                    break;
+            }
 
             m_directory = source;
-            m_files = new List<FileEntryMetadata>();
+            m_files = new List<DirectoryWalkerFile>();
         }
 
 
         /// <summary>
         /// Gets an IEnumerable instance of all valid files found in source directory.
         /// </summary>
-        public IEnumerable<FileEntryMetadata> Files {
+        public IEnumerable<DirectoryWalkerFile> Files {
             get {
                 return m_files;
             }
@@ -98,11 +115,12 @@ namespace MeHZ.HeroLab2MapTool.Core {
             var args = new FileEntryEventArgs(filePath);
             OnFileFound(args);
 
-            var metadata = new FileEntryMetadata {
+            var metadata = new DirectoryWalkerFile {
                 Directory = args.FilePath,
                 Extension = args.FileExtension,
                 FileName  = args.FileName,
                 FileType  = args.FileType,
+                FullPath  = args.FullPath,
                 MatchLength = 0
             };
 

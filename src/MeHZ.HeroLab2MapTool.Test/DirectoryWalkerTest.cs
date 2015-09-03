@@ -43,8 +43,32 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
 
         [Test]
+        public void try_process__portifolios_and_portraits_and_pogs__in_diferent_directories() {
+            var portifolioPath = DataDirectory.PORTIFOLIO_FOLDER;
+            var portraitPath = DataDirectory.PORTRAIT_FOLDER;
+            var pogsPath = DataDirectory.POG_FOLDER;
+
+            var portifolioWalker = new DirectoryWalker(portifolioPath, FileEntryType.Portifolio);
+            var portraitWalker   = new DirectoryWalker(portraitPath, FileEntryType.Portrait);
+            var pogsWalker       = new DirectoryWalker(pogsPath, FileEntryType.Pog);
+
+            portifolioWalker.Process();
+            portraitWalker.Process();
+            pogsWalker.Process();
+
+            var totalPortifoliosCount = portifolioWalker.Files.Count();
+            var totalPortraitsCount = portraitWalker.Files.Count();
+            var totalPogsCount = pogsWalker.Files.Count();
+
+            Assert.AreEqual(6, totalPortifoliosCount, "Total Portifolios");
+            Assert.AreEqual(9, totalPortraitsCount, "Total Portraits");
+            Assert.AreEqual(9, totalPogsCount, "Total POGs");
+        }
+
+
+        [Test]
         public void exec_directory_walker_processing() {
-            var files = new List<FileEntryMetadata>();
+            var files = new List<DirectoryWalkerFile>();
             var path = @"C:\Users\p017058\Copy\Roleplay\Pathfinder\Legacy of Fire";
 
             var walker = new DirectoryWalker(path);
@@ -54,7 +78,7 @@ namespace MeHZ.HeroLab2MapTool.Test {
                 //file.WriteLine(e.FilePath);
                 //Console.WriteLine(e.FilePath);
 
-                var x = new FileEntryMetadata {
+                var x = new DirectoryWalkerFile {
                     Directory   = Path.GetDirectoryName(e.FilePath),
                     FileName    = Path.GetFileName(e.FilePath),
                     MatchLength = 0
@@ -76,12 +100,12 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
         [Test]
         public void match_names_in_files() {
-            var files = new List<FileEntryMetadata>();
+            var files = new List<DirectoryWalkerFile>();
             var path = @"C:\Users\p017058\Copy\Roleplay\Pathfinder\Legacy of Fire";
             var walker = new DirectoryWalker(path);
 
             walker.FileFound += (sender, e) => {
-                var x = new FileEntryMetadata {
+                var x = new DirectoryWalkerFile {
                     Directory = Path.GetDirectoryName(e.FilePath),
                     FileName = Path.GetFileName(e.FilePath),
                     MatchLength = 0
@@ -98,7 +122,7 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
-            var matches = files.Select(e => new FileEntryMetadata {
+            var matches = files.Select(e => new DirectoryWalkerFile {
                 Directory = e.Directory,
                 FileName = e.FileName,
                 MatchLength = e.MatchLength = regex.Matches(e.FileName).Count

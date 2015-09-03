@@ -20,15 +20,15 @@ namespace MeHZ.HeroLab2MapTool.Test {
         [Test]
         public void try_open_hl_portifolio() {
             var path = Path.Combine(DataDirectory.PORTIFOLIO_FOLDER, "Merith-and-Zell.por");
-            var port = new Portifolio();
+            var port = new PortifolioParser();
             port.Load(path);
 
             var expected = 4;
-            var actual = port.PortifolioEntries.Count();
+            var actual = port.Entries.Count();
 
             Assert.AreEqual(expected, actual);
 
-            var chars = port.PortifolioEntries.ToList();
+            var chars = port.Entries.ToList();
             Assert.AreEqual(chars[0].XmlStatblock.Attribute("name").Value, "Zell Nastraniel");
             Assert.AreEqual(chars[1].XmlStatblock.Attribute("name").Value, "Luna");
             Assert.AreEqual(chars[2].XmlStatblock.Attribute("name").Value, "Merith (Mer-et-Seger)");
