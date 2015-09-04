@@ -7,8 +7,9 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 
 namespace MeHZ.HeroLab2MapTool.Core.Models {
-    public class PortifolioEntry {
+    public class HerolabCharacter {
         public string           Name            { get; set; }
+
         public string           Summary         { get; set; }
 
         [JsonIgnore]
@@ -27,6 +28,6 @@ namespace MeHZ.HeroLab2MapTool.Core.Models {
         public XElement         XmlStatblock    { get; set; }
 
         [JsonIgnore]
-        public PortifolioEntry  Owner           { get; set; }
+        public HerolabCharacter Owner           { get; set; }
     }
 }

@@ -14,16 +14,10 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
 
         /// <summary>
-        /// Keeps a reference to valid file extesions to be processed.
-        /// </summary>
-        private string[] validExtensions;
-
-
-        /// <summary>
         /// Keeps a reference to the source directory.
         /// </summary>
         private readonly string m_directory;
-        
+
 
         /// <summary>
         /// Keeps a reference to all valid files found.
@@ -32,22 +26,33 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
 
         /// <summary>
+        /// Keeps a reference to valid file extesions to be processed.
+        /// </summary>
+        private string[] validExtensions;
+
+
+        /// <summary>
         /// Raised when a valid file is found in the source directory.
         /// </summary>
         public event EventHandler<FileEntryEventArgs> FileFound;
-        
+
 
         /// <summary>
         /// Creates a new instance of DirectoryWalker class qualified with full directory path.
         /// </summary>
         /// <param name="source">The full qualified path of directory to be walked.</param>
-        public DirectoryWalker(string source): this(source, FileEntryType.All) {
+        public DirectoryWalker(string source) : this(source, FileEntryType.All) {
             if (string.IsNullOrWhiteSpace(source)) {
                 throw new ArgumentNullException("source");
             }
         }
 
 
+        /// <summary>
+        /// Creates a new instance of DirectoryWalker class qualified with full directory path.
+        /// </summary>
+        /// <param name="source">The full qualified path of directory to be walked.</param>
+        /// <param name="mode">The FileEntry type to filter files.</param>
         public DirectoryWalker(string source, FileEntryType mode) {
             switch (mode) {
                 case FileEntryType.Portifolio:
@@ -66,8 +71,8 @@ namespace MeHZ.HeroLab2MapTool.Core {
             m_directory = source;
             m_files = new List<DirectoryWalkerFile>();
         }
-
-
+        
+        
         /// <summary>
         /// Gets an IEnumerable instance of all valid files found in source directory.
         /// </summary>
@@ -83,6 +88,32 @@ namespace MeHZ.HeroLab2MapTool.Core {
         /// </summary>
         public void Process() {
             ProcessDirectory(m_directory);
+        }
+
+
+        /// <summary>
+        /// Helper methopd to easily handle possible excetions.
+        /// </summary>
+        private void ExecuteAndCatchException(string source, Action action) {
+            try {
+                action();
+            }
+            catch (UnauthorizedAccessException e) {
+                Console.WriteLine("There was an error with UnauthorizedAccessException on reading '{0}'. {1}", source, e.Message);
+            }
+            catch (Exception e) {
+                Console.WriteLine("There was an unexpected error reading '{0}'. {1}", source, e.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Trigger the FileFound event for each valid file found.
+        /// </summary>
+        /// <param name="e">Instance of FileEntryEventArgs containing all relevant file information.</param>
+        private void OnFileFound(FileEntryEventArgs e) {
+            if (FileFound != null)
+                FileFound(this, e);
         }
 
 
@@ -126,36 +157,5 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
             m_files.Add(metadata);
         }
-
-
-        /// <summary>
-        /// Helper methopd to easily handle possible excetions.
-        /// </summary>
-        private void ExecuteAndCatchException(string source, Action action) {
-            try {
-                action();
-            }
-            catch (UnauthorizedAccessException e) {
-                Console.WriteLine("There was an error with UnauthorizedAccessException on reading '{0}'. {1}", source, e.Message);
-            }
-            catch (Exception e) {
-                Console.WriteLine("There was an unexpected error reading '{0}'. {1}", source, e.Message);
-            }
-        }
-
-
-        /// <summary>
-        /// Trigger the FileFound event for each valid file found.
-        /// </summary>
-        /// <param name="e">Instance of FileEntryEventArgs containing all relevant file information.</param>
-        private void OnFileFound(FileEntryEventArgs e) {
-            if (FileFound != null)
-                FileFound(this, e);
-        }
     }
 }
-
-
-
-//public delegate void TreeEntryEventHandler(object sender, TreeEntryEventArgs e);
-//public event TreeEntryEventHandler ValidFile;

@@ -24,11 +24,11 @@ namespace MeHZ.HeroLab2MapTool.Test {
             port.Load(path);
 
             var expected = 4;
-            var actual = port.Entries.Count();
+            var actual = port.Characters.Count();
 
             Assert.AreEqual(expected, actual);
 
-            var chars = port.Entries.ToList();
+            var chars = port.Characters.ToList();
             Assert.AreEqual(chars[0].XmlStatblock.Attribute("name").Value, "Zell Nastraniel");
             Assert.AreEqual(chars[1].XmlStatblock.Attribute("name").Value, "Luna");
             Assert.AreEqual(chars[2].XmlStatblock.Attribute("name").Value, "Merith (Mer-et-Seger)");

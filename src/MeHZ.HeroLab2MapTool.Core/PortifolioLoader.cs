@@ -9,14 +9,14 @@ using MeHZ.HeroLab2MapTool.Core.Models;
 namespace MeHZ.HeroLab2MapTool.Core {
 
     public class PortifolioLoader {
-        private List<PortifolioEntry>       portifolioEntries;
         private List<DirectoryWalkerFile>   directoryWalkerFiles;
+        private List<HerolabCharacter>      heroLabCharacters;
         private List<PortifolioMetadata>    m_portifolios;
 
 
         public PortifolioLoader() {
             directoryWalkerFiles = new List<DirectoryWalkerFile>();
-            portifolioEntries = new List<PortifolioEntry>();
+            heroLabCharacters = new List<HerolabCharacter>();
             m_portifolios = new List<PortifolioMetadata>();
         }
 
@@ -38,7 +38,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
             foreach(var portifolio in portifolioFiles) {
                 portifolioParser.Load(portifolio.FullPath);
-                portifolioEntries.AddRange(portifolioParser.Entries);
+                heroLabCharacters.AddRange(portifolioParser.Characters);
             }
 
             CreatePortifoliosMetadata();
@@ -64,15 +64,31 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
             foreach (var portifolio in portifoliosWalker.Files) {
                 portifolioParser.Load(portifolio.FullPath);
-                portifolioEntries.AddRange(portifolioParser.Entries);
+                heroLabCharacters.AddRange(portifolioParser.Characters);
             }
 
             CreatePortifoliosMetadata();
         }
-        
+
+
+        private Regex BuildPogRegex(HerolabCharacter entry) {
+            var terms = CreateSearchKeywords(entry.Name);
+            var pattern = string.Format("pog|token|{0}", string.Join("|", terms));
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            return regex;
+        }
+
+
+        private Regex BuildPortraitRegex(HerolabCharacter entry) {
+            var terms = CreateSearchKeywords(entry.Name);
+            var pattern = string.Format("portrait|{0}", string.Join("|", terms));
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            return regex;
+        }
+
 
         private void CreatePortifoliosMetadata() {
-            foreach (var entry in portifolioEntries) {
+            foreach (var entry in heroLabCharacters) {
                 var portraitRegex = BuildPortraitRegex(entry);
                 var portraitFile = GetBestFileMatch(portraitRegex);
 
@@ -91,40 +107,12 @@ namespace MeHZ.HeroLab2MapTool.Core {
                 portifolio.PortifolioFile = entry.FilePath;
                 portifolio.PortraitImage = portraitFile.FullPath;
                 portifolio.PogImage = pogFile.FullPath;
+                portifolio.GenerateToken = true;
                 m_portifolios.Add(portifolio);
             }
         }
-        
-
-        private DirectoryWalkerFile GetBestFileMatch(Regex regex) {
-            return directoryWalkerFiles
-                .Where(e => e.FileType != FileEntryType.Portifolio)
-                .Select(x => {
-                    var pattern = string.Join("|", CreateSearchKeywords(x.FullPath));
-                    x.MatchLength = regex.Matches(pattern).Count;
-                    return x;
-                }).Where(e => e.MatchLength > 0)
-                .OrderByDescending(e => e.MatchLength)
-                .FirstOrDefault();
-        }
 
 
-        private Regex BuildPortraitRegex(PortifolioEntry entry) {
-            var terms = CreateSearchKeywords(entry.Name);
-            var pattern = string.Format("portrait|{0}", string.Join("|", terms));
-            var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-            return regex;
-        }
-
-
-        private Regex BuildPogRegex(PortifolioEntry entry) {
-            var terms = CreateSearchKeywords(entry.Name);
-            var pattern = string.Format("pog|token|{0}", string.Join("|", terms));
-            var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-            return regex;
-        }
-
-        
         private string[] CreateSearchKeywords(string searchPhrase) {
             if (string.IsNullOrWhiteSpace(searchPhrase)) {
                 throw new ArgumentNullException("searchPhrase");
@@ -140,6 +128,19 @@ namespace MeHZ.HeroLab2MapTool.Core {
             var terms = result.Split(' ');
 
             return terms;
+        }
+
+
+        private DirectoryWalkerFile GetBestFileMatch(Regex regex) {
+            return directoryWalkerFiles
+                .Where(e => e.FileType != FileEntryType.Portifolio)
+                .Select(x => {
+                    var pattern = string.Join("|", CreateSearchKeywords(x.FullPath));
+                    x.MatchLength = regex.Matches(pattern).Count;
+                    return x;
+                }).Where(e => e.MatchLength > 0)
+                .OrderByDescending(e => e.MatchLength)
+                .FirstOrDefault();
         }
     }
 }

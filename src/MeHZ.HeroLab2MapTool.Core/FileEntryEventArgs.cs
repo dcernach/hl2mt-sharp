@@ -34,9 +34,13 @@ namespace MeHZ.HeroLab2MapTool.Core {
         }
 
         public string FilePath          { get; internal set; }
+
         public string FileName          { get; internal set; }
+
         public string FileExtension     { get; internal set; }
-        public FileEntryType FileType   { get; internal set; }
+
         public string FullPath          { get; internal set; }
+
+        public FileEntryType FileType   { get; internal set; }
     }
 }

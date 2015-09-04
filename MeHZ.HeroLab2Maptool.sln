@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeHZ.HeroLab2MapTool.Core",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeHZ.HeroLab2MapTool.Test", "src\MeHZ.HeroLab2MapTool.Test\MeHZ.HeroLab2MapTool.Test.csproj", "{366FBDE4-60A5-47A6-B2FA-EAEFFF86039B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45C1A1B0-DC84-4351-8FD7-62D743533395}"
+	ProjectSection(SolutionItems) = preProject
+		hl2mt-next.conf = hl2mt-next.conf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

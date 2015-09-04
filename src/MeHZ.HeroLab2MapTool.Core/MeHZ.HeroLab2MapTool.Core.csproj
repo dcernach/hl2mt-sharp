@@ -45,12 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationManager.cs" />
+    <Compile Include="Configuration\DefaultConfig1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>DefaultConfig.conf</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\GlobalConfig.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ZipArchiveExtensions.cs" />
     <Compile Include="DirectoryWalker.cs" />
     <Compile Include="DirectoryWalkerFile.cs" />
     <Compile Include="FileEntryType.cs" />
-    <Compile Include="Models\PortifolioEntry.cs" />
+    <Compile Include="Models\HerolabCharacter.cs" />
     <Compile Include="PortifolioMetadata.cs" />
     <Compile Include="PortifolioParser.cs" />
     <Compile Include="PortifolioLoader.cs" />
@@ -58,9 +65,14 @@
     <Compile Include="FileEntryEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Configuration\DefaultConfig.conf">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DefaultConfig1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
