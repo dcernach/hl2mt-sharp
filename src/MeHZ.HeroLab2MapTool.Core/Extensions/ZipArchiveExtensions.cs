@@ -8,14 +8,11 @@ using System.Threading.Tasks;
 
 namespace MeHZ.HeroLab2MapTool.Core.Extensions {
     public static class ZipArchiveExtensions {
-        public static MemoryStream OpenAsMemoryStream(this ZipArchiveEntry entry) {
-            var memoStream = new MemoryStream();
-            var gzipStream = entry.Open();
-            gzipStream.CopyTo(memoStream);
-            memoStream.Position = 0;
-            return memoStream;
+        public static Stream GetEntryAsStream(this ZipArchive zip, string entryName) {
+            var zipEntry = zip.GetEntry(entryName);
+            var stream = zipEntry.Open();
+            return stream;
         }
-
 
         public static string GetEntryAsString(this ZipArchive zip, string entryName) {
             var zipEntry = zip.GetEntry(entryName);
@@ -24,10 +21,12 @@ namespace MeHZ.HeroLab2MapTool.Core.Extensions {
             return contents;
         }
 
-        public static Stream GetEntryAsStream(this ZipArchive zip, string entryName) {
-            var zipEntry = zip.GetEntry(entryName);
-            var stream = zipEntry.Open();
-            return stream;
+        public static MemoryStream OpenAsMemoryStream(this ZipArchiveEntry entry) {
+            var memoStream = new MemoryStream();
+            var gzipStream = entry.Open();
+            gzipStream.CopyTo(memoStream);
+            memoStream.Position = 0;
+            return memoStream;
         }
     }
 }

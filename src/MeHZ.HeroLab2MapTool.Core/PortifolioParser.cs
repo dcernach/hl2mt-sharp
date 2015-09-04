@@ -18,6 +18,15 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
 
         /// <summary>
+        /// Returns an IEnumerable containing all characters found in HerolLab portifolio.
+        /// </summary>
+        public IEnumerable<HerolabCharacter> Characters {
+            get;
+            private set;
+        }
+
+
+        /// <summary>
         /// Loads and parses all required information of specified Herolab portifolio.
         /// </summary>
         /// <param name="path">Full path to HeroLab portifolio (.por) file.</param>
@@ -29,7 +38,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
             var rootElm = XElement.Load(gzipStream);
             var charElms = rootElm.Elements("characters").Elements("character").ToList();
-            var portEntries = new List<PortifolioEntry>();
+            var portEntries = new List<HerolabCharacter>();
 
             foreach (var item in charElms) {
                 var heroStatBlocks = item.Elements("statblocks").Elements("statblock");
@@ -41,7 +50,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
 
                 // Load required character information
-                var heroStats           = new PortifolioEntry();
+                var heroStats           = new HerolabCharacter();
                 heroStats.Name          = item.Attribute("name").Value;
                 heroStats.Summary       = item.Attribute("summary").Value;
                 heroStats.FilePath      = path;
@@ -71,7 +80,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
                         Entry   = string.Format("{0}/{1}", e.Attribute("folder").Value, e.Attribute("filename").Value)
                     }).ToDictionary(t => t.Format, t => t.Entry);
 
-                    var minionStats = new PortifolioEntry();
+                    var minionStats = new HerolabCharacter();
                     minionStats.Name          = minion.Attribute("name").Value;
                     minionStats.Summary       = minion.Attribute("summary").Value;
                     minionStats.FilePath      = path;
@@ -92,16 +101,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
             fileStream.Dispose();
             zipArchive.Dispose();
 
-            Entries = portEntries;
-        }
-
-
-        /// <summary>
-        /// Returns an IEnumerable containing all characters found in HerolLab portifolio.
-        /// </summary>
-        public IEnumerable<PortifolioEntry> Entries {
-            get;
-            private set;
+            Characters = portEntries;
         }
     }
 }

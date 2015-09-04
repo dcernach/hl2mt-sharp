@@ -14,9 +14,11 @@ namespace MeHZ.HeroLab2MapTool.Test {
     public class PortifolioLoaderTest {
         private Stopwatch stopWatch = new Stopwatch();
 
+
         [SetUp]
         public void SetUp() {
         }
+
 
         [Test]
         public void try_load__portifolios_and_portraits_and_pogs__from_root_dir() {
@@ -28,6 +30,7 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
             Console.WriteLine("B: Elapsed={0}", stopWatch.Elapsed);
         }
+
 
         [Test]
         public void try_load__portifolios_and_portraits_and_pogs__in_diferent_directories() {

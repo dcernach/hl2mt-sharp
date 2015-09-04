@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ConfigurationManagerTest.cs" />
     <Compile Include="DataDirectory.cs" />
     <Compile Include="DirectoryWalkerTest.cs" />
     <Compile Include="PortifolioLoaderTest.cs" />
