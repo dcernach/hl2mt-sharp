@@ -23,12 +23,7 @@ namespace MeHZ.HeroLab2MapTool.Test {
         [Test]
         public void try_load__portifolios_and_portraits_and_pogs__from_root_dir() {
             var loader = new PortifolioLoader();
-
-            stopWatch.Start();
             loader.ProcessDirectory(DataDirectory.ROOT_FOLDER);
-            stopWatch.Stop();
-
-            Console.WriteLine("B: Elapsed={0}", stopWatch.Elapsed);
         }
 
 
@@ -39,10 +34,7 @@ namespace MeHZ.HeroLab2MapTool.Test {
             var pogsPath = DataDirectory.POG_FOLDER;
                        
             var loader = new PortifolioLoader();
-
-            stopWatch.Start();
             loader.ProcessDirectory(portifolioPath, portraitPath, pogsPath);
-            stopWatch.Stop();
 
             var list = loader.Portifolios;
 
@@ -50,8 +42,6 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
             File.WriteAllText(DataDirectory.TEMPORARY_FOLDER + "\\try_load__portifolios_and_portraits_and_pogs__in_diferent_directories.json", json);
-
-            Console.WriteLine("B: Elapsed={0}", stopWatch.Elapsed);
         }
     }
 }

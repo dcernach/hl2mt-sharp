@@ -33,12 +33,8 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
             Assert.AreEqual(expected, actual);
 
-            stopWatch.Start();
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
             File.WriteAllText(DataDirectory.TEMPORARY_FOLDER + "\\file_list.json", json);
-            stopWatch.Stop();
-
-            Console.WriteLine("A: Elapsed={0}", stopWatch.Elapsed);
         }
 
 
@@ -69,15 +65,11 @@ namespace MeHZ.HeroLab2MapTool.Test {
         [Test]
         public void exec_directory_walker_processing() {
             var files = new List<DirectoryWalkerFile>();
-            var path = @"C:\Users\p017058\Copy\Roleplay\Pathfinder\Legacy of Fire";
+            var path = @"D:\Users\dandrade\Copy\Roleplay\Pathfinder\Legacy of Fire";
 
             var walker = new DirectoryWalker(path);
-            //var file = File.CreateText(Path.Combine(DataDirectory.ROOT_FOLDER, "files.txt"));
 
             walker.FileFound += (sender, e) => {
-                //file.WriteLine(e.FilePath);
-                //Console.WriteLine(e.FilePath);
-
                 var x = new DirectoryWalkerFile {
                     Directory   = Path.GetDirectoryName(e.FilePath),
                     FileName    = Path.GetFileName(e.FilePath),
@@ -87,21 +79,14 @@ namespace MeHZ.HeroLab2MapTool.Test {
                 files.Add(x);
             };
             
-
-            stopWatch.Start();
             walker.Process();
-            stopWatch.Stop();
-
-            //file.Close();
-
-            Console.WriteLine("B: Elapsed={0}", stopWatch.Elapsed);
         }
 
 
         [Test]
         public void match_names_in_files() {
             var files = new List<DirectoryWalkerFile>();
-            var path = @"C:\Users\p017058\Copy\Roleplay\Pathfinder\Legacy of Fire";
+            var path = @"D:\Users\dandrade\Copy\Roleplay\Pathfinder\Legacy of Fire";
             var walker = new DirectoryWalker(path);
 
             walker.FileFound += (sender, e) => {
