@@ -10,8 +10,8 @@ using Newtonsoft.Json.Linq;
 
 namespace MeHZ.HeroLab2MapTool.Core {
     public static class ConfigurationManager {
-        private const string DEFAULT_EMBEDDED_CONFIG = "MeHZ.HeroLab2MapTool.Core.Configuration.DefaultConfig.conf";
-        private const string DEFAULT_FILENAME_CONFIG = "HeroLab2MapTool.conf";
+        private const string DEFAULT_EMBEDDED_CONFIG = "MeHZ.HeroLab2MapTool.Core.Configuration.DefaultConfig.json";
+        private const string DEFAULT_FILENAME_CONFIG = "HeroLab2MapTool.hl2mt";
 
 
         static ConfigurationManager() {

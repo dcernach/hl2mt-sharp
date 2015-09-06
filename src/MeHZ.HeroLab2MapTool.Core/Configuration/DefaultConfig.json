@@ -9,7 +9,7 @@
     },
     "Window": {
         "Position": {"Top":   100, "Left":   100},
-        "Size"    : {"Width": 500, "Height": 800},
+        "Size"    : {"Width": 640, "Height": 400},
         "State"   : "Normal"
     },
     "CampaignProperties": {
@@ -68,8 +68,8 @@
         "CreateSpecialMacros"       : true,
         "CreateStatblockMacros"     : true
     },
-    "MacrosConfig": {
-        "Initiative"    : {"BackColor": "blue",   "FontColor": "white", "GroupName": "01-Initiative"},
+    "MacrosConfig": { 
+        "Initiative"    : {"BackColor": "blue",   "FontColor": "white", "GroupName": "01-Initiative"}, 
         "BasicAbility"  : {"BackColor": "purple", "FontColor": "white", "GroupName": "02-Abilities"},
         "BasicAttack"   : {"BackColor": "red",    "FontColor": "white", "GroupName": "03-Attacks"},
         "BasicSave"     : {"BackColor": "green",  "FontColor": "white", "GroupName": "04-Saves"},

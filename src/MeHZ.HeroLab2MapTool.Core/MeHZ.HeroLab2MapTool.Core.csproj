@@ -46,11 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationManager.cs" />
-    <Compile Include="Configuration\DefaultConfig1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>DefaultConfig.conf</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\GlobalConfig.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ZipArchiveExtensions.cs" />
@@ -65,9 +60,9 @@
     <Compile Include="FileEntryEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configuration\DefaultConfig.conf">
+    <EmbeddedResource Include="Configuration\DefaultConfig.json">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>DefaultConfig1.Designer.cs</LastGenOutput>
+      <LastGenOutput>DefaultConfig.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
