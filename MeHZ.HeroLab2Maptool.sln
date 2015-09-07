@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeHZ.HeroLab2MapTool.Test",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeHZ.HeroLab2MapTool.App", "src\MeHZ.HeroLab2MapTool.App\MeHZ.HeroLab2MapTool.App.csproj", "{DC43EF00-EADC-4762-B03B-A6C3204A1C6F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{0C1140E2-5B82-4B93-BC7D-A5663BC981F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{366FBDE4-60A5-47A6-B2FA-EAEFFF86039B} = {0C1140E2-5B82-4B93-BC7D-A5663BC981F0}
 	EndGlobalSection
 EndGlobal

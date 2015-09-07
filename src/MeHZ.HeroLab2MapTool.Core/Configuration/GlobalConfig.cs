@@ -1,3 +1,6 @@
+using System;
+using System.ComponentModel;
+
 namespace MeHZ.HeroLab2MapTool.Core.Configuration {
     public class GlobalConfig {
         public General            General            { get; set; }
@@ -8,29 +11,90 @@ namespace MeHZ.HeroLab2MapTool.Core.Configuration {
         public MacrosConfig       MacrosConfig       { get; set; }
     }
 
-    public class General {
-        public string RootFolder         { get; set; }
-        public string PortifoliosFolder  { get; set; }
-        public string PortraitsFolder    { get; set; }
-        public string PogsFolder         { get; set; }
-        public string OutputFolder       { get; set; }
-        public bool   RootFolderScanning { get; set; }
+    public class General: INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        string  _inputFolder;
+        string  _portraitsFolder;
+        string  _pogsFolder;
+        string  _outputFolder;
+        bool    _inputFolderScan;
+
+        public string InputFolder {
+            get {
+                return _inputFolder;
+            }
+
+            set {
+                _inputFolder = value;
+                NotifyPropertyChanged("InputFolder");
+            }
+        }
+
+        public string PortraitsFolder {
+            get {
+                return _portraitsFolder;
+            }
+
+            set {
+                _portraitsFolder = value;
+                NotifyPropertyChanged("PortraitsFolder");
+            }
+        }
+
+        public string PogsFolder {
+            get {
+                return _pogsFolder;
+            }
+
+            set {
+                _pogsFolder = value;
+                NotifyPropertyChanged("PogsFolder");
+            }
+        }
+
+        public string OutputFolder {
+            get {
+                return _outputFolder;
+            }
+
+            set {
+                _outputFolder = value;
+                NotifyPropertyChanged("OutputFolder");
+            }
+        }
+
+        public bool InputFolderScan {
+            get {
+                return _inputFolderScan;
+            }
+
+            set {
+                _inputFolderScan = value;
+                NotifyPropertyChanged("InputFolderScan");
+            }
+        }
+
+        public void NotifyPropertyChanged(string propName) {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
     }
 
     public class Window {
-        public Position Position { get; set; }
         public Size     Size     { get; set; }
-        public string   State    { get; set; }
+        public Position Position { get; set; }
+        public int      State    { get; set; }
     }
 
     public class Position {
-        public int Top  { get; set; }
-        public int Left { get; set; }
+        public double Top  { get; set; }
+        public double Left { get; set; }
     }
 
     public class Size {
-        public int Width  { get; set; }
-        public int Height { get; set; }
+        public double Width  { get; set; }
+        public double Height { get; set; }
     }
 
     public class CampaignProperties {
@@ -95,80 +159,20 @@ namespace MeHZ.HeroLab2MapTool.Core.Configuration {
     }
 
     public class MacrosConfig {
-        public Initiative    Initiative     { get; set; }
-        public BasicAbility  BasicAbility   { get; set; }
-        public BasicAttack   BasicAttack    { get; set; }
-        public BasicSave     BasicSave      { get; set; }
-        public BasicDice     BasicDice      { get; set; }
-        public BasicHitPoint BasicHitPoint  { get; set; }
-        public Weapon        Weapon         { get; set; }
-        public Maneouver     Maneouver      { get; set; }
-        public Skill         Skill          { get; set; }
-        public Special       Special        { get; set; }
-        public Statblock     Statblock      { get; set; }
+        public MacroOptions Initiative     { get; set; }
+        public MacroOptions BasicAbility   { get; set; }
+        public MacroOptions BasicAttack    { get; set; }
+        public MacroOptions BasicSave      { get; set; }
+        public MacroOptions BasicDice      { get; set; }
+        public MacroOptions BasicHitPoint  { get; set; }
+        public MacroOptions Weapon         { get; set; }
+        public MacroOptions Maneouver      { get; set; }
+        public MacroOptions Skill          { get; set; }
+        public MacroOptions Special        { get; set; }
+        public MacroOptions Statblock      { get; set; }
     }
 
-    public class Initiative {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class BasicAbility {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class BasicAttack {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class BasicSave {
-        public string BackColor  { get; set; }
-        public string FontColor  { get; set; }
-        public string GroupName  { get; set; }
-    }
-
-    public class BasicDice {
-        public string BackColor  { get; set; }
-        public string FontColor  { get; set; }
-        public string GroupName  { get; set; }
-    }
-
-    public class BasicHitPoint {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class Weapon {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class Maneouver {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class Skill {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class Special {
-        public string BackColor { get; set; }
-        public string FontColor { get; set; }
-        public string GroupName { get; set; }
-    }
-
-    public class Statblock {
+    public class MacroOptions {
         public string BackColor { get; set; }
         public string FontColor { get; set; }
         public string GroupName { get; set; }

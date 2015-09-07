@@ -28,7 +28,27 @@ namespace MeHZ.HeroLab2MapTool.App {
         }
 
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            try {
+                Height      = ConfigurationManager.Settings.Window.Size.Height;
+                Width       = ConfigurationManager.Settings.Window.Size.Width;
+                Top         = ConfigurationManager.Settings.Window.Position.Top;
+                Left        = ConfigurationManager.Settings.Window.Position.Left;
+                WindowState = (WindowState)ConfigurationManager.Settings.Window.State;
+            } catch(Exception) {
+                // Do Nothing... Use defaults.
+            }
+        }
+
+
         private void Window_Closing(object sender, CancelEventArgs e)    {
+            ConfigurationManager.Settings.Window.Size.Height = Height;
+            ConfigurationManager.Settings.Window.Size.Width = Width;
+            ConfigurationManager.Settings.Window.Position.Top = Top;
+            ConfigurationManager.Settings.Window.Position.Left = Left;
+            ConfigurationManager.Settings.Window.State = (int)WindowState;
+            ConfigurationManager.Save();
+
             Application.Current.Shutdown();
         }
 
@@ -84,6 +104,13 @@ namespace MeHZ.HeroLab2MapTool.App {
                 ConfigurationManager.Reset();
                 ConfigurationManager.Save();
             }
+        }
+
+
+        private void MenuFolders_Click(object sender, RoutedEventArgs e) {
+            var win = new TokenFolders();
+            win.Owner = this;
+            win.ShowDialog();
         }
     }
 }

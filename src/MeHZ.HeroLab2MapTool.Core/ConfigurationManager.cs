@@ -59,7 +59,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
 
         public static void Read() {
-            if (Settings == null || !File.Exists(ConfigurationFile)) {
+            if (!File.Exists(ConfigurationFile)) {
                 Reset();
                 Save();
             }

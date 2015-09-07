@@ -60,7 +60,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
                     break;
                 case FileEntryType.Portrait:
                 case FileEntryType.Image:
-                case FileEntryType.Pog:
+                case FileEntryType.POG:
                     validExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
                     break;
                 default:

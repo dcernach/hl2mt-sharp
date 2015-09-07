@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +56,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\PortifolioGrid.xaml.cs">
+      <DependentUpon>PortifolioGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\NotTrueConverter.cs" />
+    <Compile Include="Converters\StringToUriConverter.cs" />
+    <Compile Include="Resources\FolderSelectDialog.cs" />
+    <Compile Include="Resources\FolderSelectDialogTest.cs" />
+    <Compile Include="Resources\Reflector.cs" />
+    <Compile Include="TokenFolders.xaml.cs">
+      <DependentUpon>TokenFolders.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\PortifolioGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +83,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TokenFolders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -102,47 +122,71 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\save.ico" />
+    <Resource Include="Resources\icons\save.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\colors.png" />
-    <Resource Include="Icons\database_add.png" />
-    <Resource Include="Icons\export.png" />
-    <Resource Include="Icons\folder.png" />
-    <Resource Include="Icons\gears.png" />
-    <Resource Include="Icons\help_book.png" />
-    <Resource Include="Icons\hl2mt.ico" />
-    <Resource Include="Icons\hl2mt.png" />
-    <Resource Include="Icons\import.png" />
-    <Resource Include="Icons\info.png" />
-    <Resource Include="Icons\pencil.png" />
-    <Resource Include="Icons\plus.png" />
-    <Resource Include="Icons\shield.png" />
-    <Resource Include="Icons\swords.png" />
-    <Resource Include="Icons\user.png" />
+    <Resource Include="Resources\icons\colors.png" />
+    <Resource Include="Resources\icons\database_add.png" />
+    <Resource Include="Resources\icons\export.png" />
+    <Resource Include="Resources\icons\folder.png" />
+    <Resource Include="Resources\icons\gears.png" />
+    <Resource Include="Resources\icons\help_book.png" />
+    <Resource Include="Resources\icons\hl2mt.ico" />
+    <Resource Include="Resources\icons\hl2mt.png" />
+    <Resource Include="Resources\icons\import.png" />
+    <Resource Include="Resources\icons\info.png" />
+    <Resource Include="Resources\icons\pencil.png" />
+    <Resource Include="Resources\icons\plus.png" />
+    <Resource Include="Resources\icons\shield.png" />
+    <Resource Include="Resources\icons\swords.png" />
+    <Resource Include="Resources\icons\user.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\reset.ico" />
+    <Resource Include="Resources\icons\reset.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\colors_16x16.png" />
-    <Resource Include="Icons\colors_32x32.png" />
-    <Resource Include="Icons\colors_64x64.png" />
+    <Resource Include="Resources\icons\colors_16x16.png" />
+    <Resource Include="Resources\icons\colors_32x32.png" />
+    <Resource Include="Resources\icons\colors_64x64.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\colors_24x24.png" />
+    <Resource Include="Resources\icons\colors_24x24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\gears_16x16.png" />
-    <Resource Include="Icons\gears_24x24.png" />
-    <Resource Include="Icons\gears_32x32.png" />
-    <Resource Include="Icons\gears_64x64.png" />
+    <Resource Include="Resources\icons\gears_16x16.png" />
+    <Resource Include="Resources\icons\gears_24x24.png" />
+    <Resource Include="Resources\icons\gears_32x32.png" />
+    <Resource Include="Resources\icons\gears_64x64.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\pencil_16x16.png" />
-    <Resource Include="Icons\pencil_24x24.png" />
-    <Resource Include="Icons\pencil_32x32.png" />
-    <Resource Include="Icons\pencil_64x64.png" />
+    <Resource Include="Resources\icons\pencil_16x16.png" />
+    <Resource Include="Resources\icons\pencil_24x24.png" />
+    <Resource Include="Resources\icons\pencil_32x32.png" />
+    <Resource Include="Resources\icons\pencil_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\user_16x16.png" />
+    <Resource Include="Resources\icons\user_24x24.png" />
+    <Resource Include="Resources\icons\user_32x32.png" />
+    <Resource Include="Resources\icons\user_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\folder_16x16.png" />
+    <Resource Include="Resources\icons\folder_24x24.png" />
+    <Resource Include="Resources\icons\folder_32x32.png" />
+    <Resource Include="Resources\icons\folder_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\help_16x16.png" />
+    <Resource Include="Resources\icons\help_24x24.png" />
+    <Resource Include="Resources\icons\help_32x32.png" />
+    <Resource Include="Resources\icons\help_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\about_16x16.png" />
+    <Resource Include="Resources\icons\about_24x24.png" />
+    <Resource Include="Resources\icons\about_32x32.png" />
+    <Resource Include="Resources\icons\about_64x64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

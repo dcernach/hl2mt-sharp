@@ -1,0 +1,70 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MeHZ.HeroLab2MapTool.App"
+        xmlns:Converters="clr-namespace:MeHZ.HeroLab2MapTool.App.Converters"
+        x:Class="MeHZ.HeroLab2MapTool.App.TokenFolders"
+        mc:Ignorable="d" Icon="resources/icons/folder_16x16.png"
+        Title="Token Folders" Width="740" WindowStartupLocation="CenterOwner" 
+        ResizeMode="NoResize" ShowInTaskbar="False" x:Name="frmTokenFolder"
+        WindowStyle="ToolWindow" SizeToContent="Height" 
+        d:DesignHeight="280.725">
+
+    <Window.Resources>
+        <Converters:StringToUriConverter x:Key="StringToUriConverter"/>
+        <Converters:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <StackPanel>
+            <DockPanel>
+                <Button Content="Input Directory" Margin="5" Width="150" x:Name="btnSelectInput" Click="btnSelectInput_Click"/>
+                <TextBox BorderThickness="1" BorderBrush="Silver" Margin="5" 
+                         Text="{Binding InputFolder, Converter={StaticResource StringToUriConverter}}"/>
+            </DockPanel>
+            <DockPanel>
+                <Rectangle Width="150" Margin="5"/>
+                <CheckBox x:Name="chkInputFolderScan" Content="Recursive scan input directory?" 
+					HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"
+					IsChecked="{Binding InputFolderScan}" Click="chkInputFolderScan_Click" />
+            </DockPanel>
+            <DockPanel>
+                <Button Content="POG Directory" Margin="5" Width="150" x:Name="btnSelectPog" Click="btnSelectPog_Click" 
+                        IsEnabled="{Binding IsChecked, ElementName=chkInputFolderScan, 
+                                                       Converter={StaticResource NegateBooleanConverter}}"/>
+
+                <TextBox BorderThickness="1" BorderBrush="Silver"  Margin="5"
+                         Text="{Binding PogsFolder}" 
+                         IsEnabled="{Binding IsChecked, ElementName=chkInputFolderScan, 
+                                                        Converter={StaticResource NegateBooleanConverter}}"/>
+            </DockPanel>
+            <DockPanel>
+                <Button Content="Portrait Directory" Margin="5" Width="150" x:Name="btnSelectPortrait" Click="btnSelectPortrait_Click"
+                        IsEnabled="{Binding IsChecked, ElementName=chkInputFolderScan, 
+                                                        Converter={StaticResource NegateBooleanConverter}}"/>
+
+                <TextBox BorderThickness="1" BorderBrush="Silver"  Margin="5"
+                         Text="{Binding PortraitsFolder}" 
+                         IsEnabled="{Binding IsChecked, ElementName=chkInputFolderScan, 
+                                                        Converter={StaticResource NegateBooleanConverter}}"/>
+            </DockPanel>
+            <DockPanel>
+                <Button Content="Output Directory" Margin="5" Width="150" x:Name="btnSelectOutput" Click="btnSelectOutput_Click"
+                        IsEnabled="{Binding IsChecked, ElementName=chkInputFolderScan,
+                                                       Converter={StaticResource NegateBooleanConverter}}"/>
+
+                <TextBox BorderThickness="1" BorderBrush="Silver" Margin="5"
+                         Text="{Binding OutputFolder}" 
+                         IsEnabled="{Binding IsChecked, ElementName=chkInputFolderScan, 
+                                                        Converter={StaticResource NegateBooleanConverter}}"/>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right">
+                <Button Content="OK" Margin="5" Width="80" x:Name="btnOK" Click="btnOK_Click"/>
+                <Button Content="Cancel" Margin="5" Width="80" x:Name="btnCancel" Click="btnCancel_Click"/>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+
+</Window>
