@@ -56,7 +56,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
             portraitsWalker.Process();
             directoryWalkerFiles.AddRange(portraitsWalker.Files.ToList());
 
-            var pogsWalker = new DirectoryWalker(pogsPath, FileEntryType.Pog);
+            var pogsWalker = new DirectoryWalker(pogsPath, FileEntryType.POG);
             pogsWalker.Process();
             directoryWalkerFiles.AddRange(pogsWalker.Files.ToList());
 
@@ -100,7 +100,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
                 }
 
                 if (pogFile != null) {
-                    pogFile.FileType = FileEntryType.Pog; 
+                    pogFile.FileType = FileEntryType.POG; 
                 }
 
                 var portifolio = new PortifolioMetadata(entry);

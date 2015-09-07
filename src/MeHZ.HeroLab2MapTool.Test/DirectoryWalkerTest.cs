@@ -46,7 +46,7 @@ namespace MeHZ.HeroLab2MapTool.Test {
 
             var portifolioWalker = new DirectoryWalker(portifolioPath, FileEntryType.Portifolio);
             var portraitWalker   = new DirectoryWalker(portraitPath, FileEntryType.Portrait);
-            var pogsWalker       = new DirectoryWalker(pogsPath, FileEntryType.Pog);
+            var pogsWalker       = new DirectoryWalker(pogsPath, FileEntryType.POG);
 
             portifolioWalker.Process();
             portraitWalker.Process();

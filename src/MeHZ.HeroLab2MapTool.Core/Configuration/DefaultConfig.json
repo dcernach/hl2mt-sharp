@@ -1,16 +1,15 @@
 {
     "General": {
-        "RootFolder"         : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data",
-        "PortifoliosFolder"  : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data",
-        "PortraitsFolder"    : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\portraits",
-        "PogsFolder"         : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\pogs",
-        "OutputFolder"       : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\tokens",
-        "RootFolderScanning" : true
+        "InputFolder"     : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data",
+        "PortraitsFolder" : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\portraits",
+        "PogsFolder"      : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\pogs",
+        "OutputFolder"    : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\tokens",
+        "InputFolderScan" : true
     },
     "Window": {
-        "Position": {"Top":   100, "Left":   100},
-        "Size"    : {"Width": 640, "Height": 400},
-        "State"   : "Normal"
+        "Size"    : {"Width": 800.0, "Height": 500.0},
+        "Position": {"Top"  : 200.0, "Left"  : 200.0},
+        "State"   : 0  /* WindowState.Normal */
     },
     "CampaignProperties": {
         "TokenType" : "PathfinderSharp",
