@@ -56,9 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\PortifolioGrid.xaml.cs">
-      <DependentUpon>PortifolioGrid.xaml</DependentUpon>
+    <Compile Include="Controls\CharacterGrid.xaml.cs">
+      <DependentUpon>CharacterGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CharacterModel.cs" />
+    <Compile Include="Controls\CharacterViewModel.cs" />
     <Compile Include="Converters\NotTrueConverter.cs" />
     <Compile Include="Converters\StringToUriConverter.cs" />
     <Compile Include="Resources\FolderSelectDialog.cs" />
@@ -67,9 +69,9 @@
     <Compile Include="TokenFolders.xaml.cs">
       <DependentUpon>TokenFolders.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\PortifolioGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Controls\CharacterGrid.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
