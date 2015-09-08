@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,7 +24,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
         public IEnumerable<PortifolioMetadata> Portifolios {
             get {
-                return m_portifolios;
+                return m_portifolios.OrderBy(e => e.HeroLabCharacter.Name);
             }
         }
 
@@ -89,6 +90,8 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
         private void CreatePortifoliosMetadata() {
             foreach (var entry in heroLabCharacters) {
+                var portifolio = new PortifolioMetadata(entry);
+
                 var portraitRegex = BuildPortraitRegex(entry);
                 var portraitFile = GetBestFileMatch(portraitRegex);
 
@@ -97,16 +100,16 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
                 if (portraitFile != null) {
                     portraitFile.FileType = FileEntryType.Portrait;
+                    portifolio.PortraitImage = portraitFile.FullPath;
                 }
 
                 if (pogFile != null) {
-                    pogFile.FileType = FileEntryType.POG; 
+                    pogFile.FileType = FileEntryType.POG;
+                    portifolio.PogImage = pogFile.FullPath;
                 }
 
-                var portifolio = new PortifolioMetadata(entry);
+                
                 portifolio.PortifolioFile = entry.FilePath;
-                portifolio.PortraitImage = portraitFile.FullPath;
-                portifolio.PogImage = pogFile.FullPath;
                 portifolio.GenerateToken = true;
                 m_portifolios.Add(portifolio);
             }
@@ -120,10 +123,12 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
             var regexSanitize = new Regex(@"[^\w-]");
             var regexNormalize = new Regex(@"\s+");
+            var regexNoNumbers = new Regex(@"\d+");
 
             var result = regexSanitize.Replace(searchPhrase, " ");
+            result = regexNoNumbers.Replace(result, " ");
             result = regexNormalize.Replace(result, " ");
-            result = result.Trim();
+            result = result.Replace("_", " ") .Trim();
 
             var terms = result.Split(' ');
 
@@ -132,6 +137,7 @@ namespace MeHZ.HeroLab2MapTool.Core {
 
 
         private DirectoryWalkerFile GetBestFileMatch(Regex regex) {
+
             return directoryWalkerFiles
                 .Where(e => e.FileType != FileEntryType.Portifolio)
                 .Select(x => {

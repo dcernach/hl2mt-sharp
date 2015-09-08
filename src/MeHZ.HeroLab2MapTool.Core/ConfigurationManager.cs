@@ -80,6 +80,10 @@ namespace MeHZ.HeroLab2MapTool.Core {
             }
 
             Settings = JsonConvert.DeserializeObject<GlobalConfig>(config);
+            Settings.General.InputFolder     = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Settings.General.PortraitsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Settings.General.PogsFolder      = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Settings.General.OutputFolder    = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
 

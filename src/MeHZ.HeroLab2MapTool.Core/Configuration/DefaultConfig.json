@@ -1,9 +1,9 @@
 {
     "General": {
-        "InputFolder"     : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data",
-        "PortraitsFolder" : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\portraits",
-        "PogsFolder"      : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\pogs",
-        "OutputFolder"    : "C:\\Workspace\\work\\dot.net\\hl2mt-sharp\\test_data\\tokens",
+        "InputFolder"     : "MyDocuments",
+        "PortraitsFolder" : "MyDocuments",
+        "PogsFolder"      : "MyDocuments",
+        "OutputFolder"    : "MyDocuments",
         "InputFolderScan" : true
     },
     "Window": {
